@@ -48,4 +48,4 @@ Contributed by Theena Dang (maria.cristina.dang@gmail.com)
 
 ## License
 
-MIT
+[MIT](LICENSE)
