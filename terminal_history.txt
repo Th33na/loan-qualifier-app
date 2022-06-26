@@ -1,0 +1,50 @@
+  524  git clone git@github.com:Th33na/loan-qualifier-app.git
+  525  cd loan-qualifier-app/
+  526  vi requirements.txt
+  527  git status
+  528  git add requirements.txt 
+  529  git status
+  530  git add README.md 
+  531  git status
+  532  git commit -m "Initial README and requirements"
+  533  git push origin main
+  534  mkdir data
+  535  mkdir qualifier
+  536  cd qualifier
+  537  pwd
+  538  mkdir filters
+  539  mkdir utils
+  540  cd ..
+  541  pwd
+  542  git status
+  543  mkdir images
+  544  git status
+  545  git add app.py
+  546  git add data
+  547  git add qualifier/
+  548  git status
+  549  git commit -m "Initial Loan Qualifier Application"
+  550  git status
+  551  git push origin main
+  552  python app.py 
+  553  git status
+  554  git status
+  555  git status
+  556  git add .gitignore 
+  557  git add app.py
+  558  git add qualifier/filters/*
+  559  git add qualifier/utils/*
+  560  git status
+  561  git commit -m "Add comments and cleanup debugging logs"
+  562  git push origin main
+  563  git history
+  564  history
+  565  history 50
+  566  python app.py 
+  567  git status
+  568  git add images/*
+  569  git add README.md 
+  570  git status
+  571  git commit -m "README and image"
+  572  git push origin main
+  573  history 50 > terminal_history.txt
