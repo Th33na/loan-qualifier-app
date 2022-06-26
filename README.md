@@ -1,6 +1,6 @@
 # Loan Qualifier Application
 
-This is a python command-line interface application that will calculate for qualified loans within the data provided by the user. 
+This is a python command-line interface application that will calculate for qualified loans based on the data provided by the user. 
 User will have the option to save the qualified loan list into a file.
 
 ---
