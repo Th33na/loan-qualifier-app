@@ -48,12 +48,14 @@ def get_applicant_info():
         Returns the applicant's financial information.
     """
 
+    # Request for data to calculate
     credit_score = questionary.text("What's your credit score?", validate=is_valid_credit_score).ask()
     debt = questionary.text("What's your current amount of monthly debt?", validate=is_valid_amount).ask()
     income = questionary.text("What's your total monthly income?", validate=is_valid_amount).ask()
     loan_amount = questionary.text("What's your desired loan amount?", validate=is_valid_amount).ask()
     home_value = questionary.text("What's your home value?", validate=is_valid_amount).ask()
 
+    # convert the data to format needed
     credit_score = int(credit_score)
     debt = float(debt)
     income = float(income)
@@ -87,11 +89,11 @@ def find_qualifying_loans(bank_data, credit_score, debt, income, loan, home_valu
 
     # Calculate the monthly debt ratio
     monthly_debt_ratio = calculate_monthly_debt_ratio(debt, income)
-    print(f"The monthly debt to income ratio is {monthly_debt_ratio:.02f}")
+    questionary.print(f"The monthly debt to income ratio is {monthly_debt_ratio:.02f}", style="bold bg:black fg:green")
 
     # Calculate loan to value ratio
     loan_to_value_ratio = calculate_loan_to_value_ratio(loan, home_value)
-    print(f"The loan to value ratio is {loan_to_value_ratio:.02f}.")
+    questionary.print(f"The loan to value ratio is {loan_to_value_ratio:.02f}.", style="bold bg:black fg:green")
 
     # Run qualification filters
     bank_data_filtered = filter_max_loan_size(loan, bank_data)
@@ -99,7 +101,7 @@ def find_qualifying_loans(bank_data, credit_score, debt, income, loan, home_valu
     bank_data_filtered = filter_debt_to_income(monthly_debt_ratio, bank_data_filtered)
     bank_data_filtered = filter_loan_to_value(loan_to_value_ratio, bank_data_filtered)
 
-    print(f"Found {len(bank_data_filtered)} qualifying loans")
+    questionary.print(f"Found {len(bank_data_filtered)} qualifying loans", style="bold bg:black fg:green")
 
     return bank_data_filtered
 
@@ -110,17 +112,22 @@ def save_qualifying_loans(qualifying_loans):
         qualifying_loans (list of lists): The qualifying bank loans.
     """
 
-    save_loan_to_file = questionary.confirm("Do you want to save the quaifying loans into a file?").ask()
+    # Ask if the qualified loans should be saved into a file
+    should_save_loan_to_file = questionary.confirm("Do you want to save the quaifying loans into a file?").ask()
 
-    if save_loan_to_file:
+    if should_save_loan_to_file:
+        # Ask for the output filename
         csvpath = questionary.path("Enter a file path to save the result (.csv):").ask()
         csv_output_path = Path(csvpath)
 
+        # Check if the file exists and prompt user that their fiel will be overwritten
         if csv_output_path.is_file():
             questionary.print(f"The file {csvpath} exists. It will be overwritten! ", style="bold bg:white fg:red")
 
+        # Save the csv file
         save_csv(csv_output_path, qualifying_loans, header=["Lender","Max Loan Amount","Max LTV","Max DTI","Min Credit Score","Interest Rate"])
-        questionary.print("As you wish! Qualified Loans saved!", style="bold bg:white fg:ansiblue")
+
+        questionary.print(f"As you wish! The Qualified Loans list had been saved in {csvpath}!", style="bold bg:white fg:ansiblue")
     else:
        questionary.print("As you wish! Qualified Loans not saved!", style="bold italic bg:white fg:red")
 

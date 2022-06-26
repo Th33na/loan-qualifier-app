@@ -3,7 +3,14 @@ from qualifier.utils.input_validators import is_valid_credit_score, is_valid_amo
 
 def is_valid_bank_data(data_row):
     """Validates if a row/record provided is in the format needed by the application
-        [Lender (string),Max Loan Amount(float),Max LTV(float),Max DTI(float),Min Credit Score(int),Interest Rate(float)]
+        There should be atleast 6 columns in the order of:
+            1) Lender (string)
+            2) Max Loan Amount (float)
+            3) Max LTV (float)
+            4) Max DTI(float)
+            5) Min Credit Score (int)
+            6) Interest Rate(float)
+       
     Args:
         data_row (list): bank details
 
@@ -13,7 +20,8 @@ def is_valid_bank_data(data_row):
     """
     # TODO: Convert to dictionary instead of list
 
-    if not len(data_row) == 6:
+    # There should be atleast 6 columns in the file 
+    if not len(data_row) >= 6:
         return False
 
     for index in [1,2,3,5]:

@@ -33,9 +33,6 @@ def load_csv(csvpath):
         for row in csvreader:
             if is_valid_bank_data(row):
                 data.append(row)
-            else:
-                print(row)
-        print(len(data))
     return data
 
 
@@ -48,6 +45,7 @@ def save_csv(csvpath, data, header=None):
         header (list): An optional header for the CSV.
 
     """
+    # try to create the cvs file
     try:
         with open(csvpath, "w", newline="") as csvfile:
             csvwriter = csv.writer(csvfile, delimiter=',')
@@ -55,4 +53,6 @@ def save_csv(csvpath, data, header=None):
                 csvwriter.writerow(header)
             csvwriter.writerows(data)
     except FileNotFoundError:
+        # This will occur if the directory provided doesn't exists
+        # TODO: try to create the directories
         sys.exit(f"Oops! Can't create the file: {csvpath} because the file directory doesn't exists.")
